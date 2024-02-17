@@ -1,0 +1,132 @@
+<%- include('../partials/Header.ejs') -%>
+    <div class="d-flex justify-content-center v100 align-items-center my-5">
+        <div class="w-50 p-4 rounded-4 bg-dark">
+            <form action="/adduser" method="post" class="w-100" onsubmit="return validateForm()">
+                <h4 class="text-light mb-3">Add User</h4>
+                <div class="mb-3">
+                    <input type="text" name="name" class="form-control" placeholder="NAME" id="name">
+                    <div id="name-error" class="text-warning"></div>
+                </div>
+                <div class="mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="EMAIL" id="email">
+                    <div id="email-error" class="text-warning"></div>
+                </div>
+                <div class="d-flex align-items-center form-control p-2">
+                    <label class="me-4">GENDER : </label>
+                    <div class="form-check me-4">
+                        <input class="form-check-input" name="gender" type="radio" id="male" value="Male">
+                        <label class="form-check-label" for="male">
+                            MALE
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="female"
+                            value="Female">
+                        <label class="form-check-label" for="female">
+                            FEMALE
+                        </label>
+                    </div>
+                </div>
+                <div id="gender-error" class="text-warning mb-3"></div>
+                <div class="mb-3">
+                    <select name="course" class="form-select" id="course">
+                        <option value="">--SELECT COURSE--</option>
+                        <option value="Full Stack">Full Stack</option>
+                        <option value="Animation">Animation</option>
+                        <option value="Graphic Designer">Graphic Designer</option>
+                        <option value="Frontend Designer">Frontend Designer</option>
+                        <option value="Backend Developer">Backend Developer</option>
+                    </select>
+                    <div id="course-error" class="text-warning"></div>
+                </div>
+                <div class="form-control">
+                    <label class="d-block mb-3">HOBBY:</label>
+                    <div class="row px-3">
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="hobby" id="hobby1"
+                                    value="Reading">
+                                <label class="form-check-label" for="hobby1">
+                                    Reading
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="hobby" id="hobby2"
+                                    value="Traveling">
+                                <label class="form-check-label" for="hobby2">
+                                    Traveling
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="hobby" id="hobby3" value="Gaming">
+                                <label class="form-check-label" for="hobby3">
+                                    Gaming
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="hobby" id="hobby4"
+                                    value="Writing">
+                                <label class="form-check-label" for="hobby4">
+                                    Writing
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="hobby-error" class="text-warning mb-3"></div>
+                <div class="mb-3">
+                    <textarea name="address" cols="30" rows="10" class="form-control" placeholder="ADDRESS"
+                        id="address"></textarea>
+                    <div id="address-error" class="text-warning"></div>
+                </div>
+                <button type="submit" class="btn btn-outline-light">Add</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+            let isValid = true;
+            document.getElementById('name-error').innerText = '';
+            document.getElementById('email-error').innerText = '';
+            document.getElementById('gender-error').innerText = '';
+            document.getElementById('course-error').innerText = '';
+            document.getElementById('address-error').innerText = '';
+
+            if (document.getElementById('name').value === "") {
+                document.getElementById('name-error').innerText = 'Name is required';
+                isValid = false;
+            }
+            if (document.getElementById('email').value === "") {
+                document.getElementById('email-error').innerText = 'Email is required';
+                isValid = false;
+            }
+            let genderSelected = document.querySelector('input[name="gender"]:checked');
+            if (!genderSelected) {
+                document.getElementById('gender-error').innerText = 'Please select a gender';
+                isValid = false;
+            }
+            if (document.getElementById('course').value === "") {
+                document.getElementById('course-error').innerText = 'Please select a course';
+                isValid = false;
+            }
+            let hobbiesSelected = document.querySelectorAll('input[name="hobby"]:checked');
+            if (hobbiesSelected.length === 0) {
+                document.getElementById('hobby-error').innerText = 'Please select at least one hobby';
+                isValid = false;
+            } else {
+                document.getElementById('hobby-error').innerText = '';
+            }
+            if (document.getElementById('address').value === "") {
+                document.getElementById('address-error').innerText = 'Address is required';
+                isValid = false;
+            }
+            return isValid;
+        }
+    </script>
+    <%- include('../partials/Footer.ejs') -%>
